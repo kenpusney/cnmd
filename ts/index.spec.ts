@@ -4,7 +4,7 @@ import { expect } from "chai"
 
 import * as marked from "marked"
 
-import CnmdRenderer from "./CnmdRenderer"
+import { CnmdRenderer } from "./index"
 
 const renderer = new CnmdRenderer()
 

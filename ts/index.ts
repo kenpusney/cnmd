@@ -1,4 +1,38 @@
 
-import CnmdRenderer from "./CnmdRenderer"
+import { Renderer, MarkedOptions } from "marked"
 
-export default { CnmdRenderer }
+const DEFAULT_HANDLERS = {
+    "": (postfix) => `/#/wiki/${postfix}`,
+    "github": (postfix) => `https://github.com/${postfix}`,
+    "\\": (postfix) => `:${postfix}`,
+    "twitter": (postfix) => `https://twitter.com/${postfix}`,
+    "wiki": (postfix) => `https://en.wikipedia.org/wiki/${postfix}`,
+}
+
+export type CrossNotationHandler = (postfix: string) => string
+export type Handlers =  { [key: string]: CrossNotationHandler }
+
+export class CnmdRenderer extends Renderer {
+
+    static default_handlers: Handlers
+
+    handlers: Handlers
+
+    constructor(handlers?: Handlers, options?: MarkedOptions) {
+        super(options);
+        this.handlers = handlers || DEFAULT_HANDLERS;
+    }
+
+    link(href, title, text) {
+        if (text.match(/^\w*:.*/)) {
+            let segment = text.split(":");
+            if (this.handlers[segment[0]]) {
+                href = this.handlers[segment[0]](segment[1]);
+                return super.link(href, segment[1], segment[1])
+            }
+        }
+        return super.link(href, title, text);
+    }
+}
+
+CnmdRenderer.default_handlers = DEFAULT_HANDLERS;

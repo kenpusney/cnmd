@@ -1,4 +1,6 @@
-node_packages/
 *.log
 yarn*
 *.tgz
+*.spec.js
+*.spec.ts
+*.js.map

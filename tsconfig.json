@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "outDir": "lib",
-        "watch": true,
-        "sourceMap": true
+        "outDir": "./dist",
+        "sourceMap": true,
+        "declaration": true
     },
     "exclude": ["ts/**/*.spec.ts"],
     "include": ["ts/**/*.ts"]
