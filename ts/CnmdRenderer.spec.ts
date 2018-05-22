@@ -20,4 +20,12 @@ describe("CNMD Renderer", () => {
 
         expect(link).equal('<a href="https://github.com/kenpusney/cnmd" title="kenpusney/cnmd">kenpusney/cnmd</a>')
     })
+
+    it("should support customized handlers", () => {
+        let customizedRenderer = new CnmdRenderer({ "link": (s) => `#${s}` })
+
+        let link = customizedRenderer.link("", "", "link:home");
+
+        expect(link).equal('<a href="#home" title="home">home</a>')
+    })
 })
