@@ -1,6 +1,6 @@
 {
   "name": "cnmd",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Cross-Notation Markdown",
   "main": "lib/index.js",
   "repository": "git@github.com:kenpusney/cnmd",
