@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "outDir": "lib",
+        "watch": true,
+        "sourceMap": true
+    },
+    "exclude": ["ts/**/*.spec.ts"],
+    "include": ["ts/**/*.ts"]
+
+}
