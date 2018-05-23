@@ -1,6 +1,6 @@
 {
   "name": "cnmd",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Cross-Notation Markdown",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
