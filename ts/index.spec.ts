@@ -22,7 +22,7 @@ describe("CNMD Renderer", () => {
     })
 
     it("should support customized handlers", () => {
-        let customizedRenderer = new CnmdRenderer({ "link": (s) => `#${s}` })
+        let customizedRenderer = new CnmdRenderer({ "link": (s, r) => r(`#${s}`, s) })
 
         let link = customizedRenderer.link("", "", "link:home");
 

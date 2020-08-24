@@ -2,24 +2,25 @@
 import { Renderer, MarkedOptions } from "marked"
 
 const DEFAULT_HANDLERS = {
-    "": (postfix) => `/#/wiki/${postfix}`,
-    "github": (postfix) => `https://github.com/${postfix}`,
-    "\\": (postfix) => `:${postfix}`,
-    "twitter": (postfix) => `https://twitter.com/${postfix}`,
-    "wiki": (postfix) => `https://en.wikipedia.org/wiki/${postfix}`,
+    "": (postfix, render) => render(`/#/wiki/${postfix}`, postfix),
+    "github": (postfix, render) => render(`https://github.com/${postfix}`, postfix),
+    "\\": (postfix, render) => render(`:${postfix}`, postfix),
+    "twitter": (postfix, render) => render(`https://twitter.com/${postfix}`, postfix),
+    "wiki": (postfix, render) => render(`https://en.wikipedia.org/wiki/${postfix}`, postfix),
 }
 
-export type CrossNotationHandler = (postfix: string) => string
+export type CrossNotationRenderer = (url: string, description: string) => string
+
+export type CrossNotationHandler = (postfix: string, render: CrossNotationRenderer) => string
 export type Handlers =  { [key: string]: CrossNotationHandler }
 
-export class CnmdRenderer extends Renderer {
+export class CnmdRenderer {
 
     static default_handlers: Handlers
 
     handlers: Handlers
 
-    constructor(handlers?: Handlers, options?: MarkedOptions) {
-        super(options);
+    constructor(handlers?: Handlers) {
         this.handlers = handlers || DEFAULT_HANDLERS;
     }
 
@@ -27,11 +28,13 @@ export class CnmdRenderer extends Renderer {
         if (text.match(/^\w*:.*/)) {
             let segment = text.split(":");
             if (this.handlers[segment[0]]) {
-                href = this.handlers[segment[0]](segment[1]);
-                return super.link(href, segment[1], segment[1])
+                const result = this.handlers[segment[0]](segment[1], (url, title) => {
+                    return `<a href="${url}" title="${title}">${title}</a>`;
+                });
+                return result; 
             }
         }
-        return super.link(href, title, text);
+        return `<a href="${href}" title="${title}">${text}</a>`;
     }
 }
 

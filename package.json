@@ -1,6 +1,6 @@
 {
   "name": "cnmd",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Cross-Notation Markdown",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
   "author": "Kimmy Leo <kenpusney@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "marked": "^0.4.0"
+    "marked": "^1.1.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
@@ -21,6 +21,6 @@
     "typescript": "^2.8.3"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/_mocha -r ts-node/register -r ignore-styles ts/**/*.spec.ts"
+    "test": "mocha -r ts-node/register -r ignore-styles ts/**/*.spec.ts"
   }
 }
